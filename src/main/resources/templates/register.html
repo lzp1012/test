@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <script type="application/javascript">
+        $(function() {
+            $.ajax({
+                type:"get",
+                url:"findAllDept",
+                datatype:"json",
+                success:function (rs) {
+                    $(rs).each(function (index,item) {
+                        var option="<option value='"+item.deptno+"'>"+item.dname+"</option>"
+                        $("#selectBox").append(option);
+                    })
+                }
+            })
+        })
+    </script>
+</head>
+
+<body>
+<h2 align="center">注册</h2>
+<!--<span th:text="message" th:if="${not #strings.isEmpty(message)}"></span>-->
+<table align="center">
+    <form th:action="@{/register}" method="post">
+        <tr>
+            <td align="right">
+                请输入员工姓名:
+            </td>
+            <td align="left">
+                <input type="text" name="ename">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">
+                请输入员工密码:
+            </td>
+            <td align="left">
+                <input type="text" name="password">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">
+                请输入员工工资:
+            </td>
+            <td align="center">
+                <input type="text" name="salary">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">
+                请选择员工部门
+            </td>
+            <td align="left">
+                <select id="selectBox" name="deptno">
+                    <option>请选择部门</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="注册">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a th:href="@{/login}">如已经注册,请到登录页面</a>
+            </td>
+        </tr>
+
+    </form>
+</table>
+
+</body>
+</html>
